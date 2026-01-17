@@ -1,0 +1,81 @@
+data_pemain = []
+id_counter = 1
+
+def tampilkan_menu():
+    print("\n=== MENU UTAMA ===")
+    print("1. Tambah Pemain")
+    print("2. Lihat Data Pemain")
+    print("3. Update Data Pemain")
+    print("4. Hapus Data Pemain")
+    print("5. Keluar")
+
+def tambah_pemain():
+    global id_counter
+    try:
+        nama = input("Masukkan nama pemain: ")
+        posisi = input("Masukkan posisi pemain: ")
+        nomor = int(input("Masukkan nomor punggung: "))
+        data_pemain.append({
+            "id": id_counter,
+            "nama": nama,
+            "posisi": posisi,
+            "nomor": nomor
+        })
+        id_counter += 1
+        print("Data pemain berhasil ditambahkan.")
+    except ValueError:
+        print("Nomor punggung harus berupa angka.")
+
+def lihat_pemain():
+    if not data_pemain:
+        print("Data pemain masih kosong.")
+    else:
+        print("\nDaftar Pemain Sepak Bola:")
+        print("ID | Nama | Posisi | Nomor")
+        for pemain in data_pemain:
+            print(f"{pemain['id']} | {pemain['nama']} | {pemain['posisi']} | {pemain['nomor']}")
+
+def update_pemain():
+    try:
+        id_pemain = int(input("Masukkan ID pemain yang ingin diupdate: "))
+        for pemain in data_pemain:
+            if pemain["id"] == id_pemain:
+                pemain["nama"] = input("Masukkan nama baru: ")
+                pemain["posisi"] = input("Masukkan posisi baru: ")
+                pemain["nomor"] = int(input("Masukkan nomor punggung baru: "))
+                print("Data pemain berhasil diperbarui.")
+                return
+        print("ID pemain tidak ditemukan.")
+    except ValueError:
+        print("Input tidak valid.")
+
+def hapus_pemain():
+    try:
+        id_pemain = int(input("Masukkan ID pemain yang ingin dihapus: "))
+        for pemain in data_pemain:
+            if pemain["id"] == id_pemain:
+                data_pemain.remove(pemain)
+                print("Data pemain berhasil dihapus.")
+                return
+        print("ID pemain tidak ditemukan.")
+    except ValueError:
+        print("Input tidak valid.")
+
+# Program Utama
+while True:
+    tampilkan_menu()
+    pilihan = input("Pilih menu (1-5): ")
+
+    if pilihan == "1":
+        tambah_pemain()
+    elif pilihan == "2":
+        lihat_pemain()
+    elif pilihan == "3":
+        update_pemain()
+    elif pilihan == "4":
+        hapus_pemain()
+    elif pilihan == "5":
+        print("Program selesai. Terima kasih.")
+        break
+    else:
+        print("Pilihan menu tidak valid.")
